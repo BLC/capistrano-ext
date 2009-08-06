@@ -8,7 +8,7 @@ Capistrano::Configuration.instance.load do
   location = fetch(:stage_dir, "config/deploy")
 
   unless exists?(:stages)
-    set :stages, Dir["#{location}/*.rb"].map { |f| File.basename(f, ".rb") }
+    set :stages, Dir["#{location}/**/*.rb"].map { |f| f.gsub(/^#{location}\//, '').gsub(/\.rb$/, '') }
   end
 
   stages.each do |name| 
